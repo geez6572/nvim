@@ -4,13 +4,6 @@
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___
 "|_|  |_| |_|   |_| \_|  \_/  |___|_|  |_|_| \_\\____|
 
-" Author: @theniceboy
-
-" Checkout-list
-" vim-esearch
-" fmoralesc/worldslice
-" SidOfc/mkdx
-
 
 " ==================== Auto load for first time uses ====================
 if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
@@ -106,10 +99,9 @@ augroup NVIMRC
     autocmd BufWritePost *.nvimrc exec ":so %"
 augroup END
 " Undo operations
-noremap l u
+
 " Insert Key
-noremap k i
-noremap K I
+
 " Copy to system clipboard
 vnoremap Y "+y
 " Find pair
@@ -127,42 +119,38 @@ noremap <silent> <LEADER>o za
 
 " ==================== Cursor Movement ====================
 " New cursor movement (the default arrow keys are used for resizing windows)
-"     ^
-"     u
-" < n   i >
-"     e
-"     v
-noremap <silent> u k
-noremap <silent> n h
-noremap <silent> e j
-noremap <silent> i l
-noremap <silent> gu gk
-noremap <silent> ge gj
+noremap i k
+noremap k j
+noremap j h
+noremap h i
+noremap H I
+noremap <silent> gi gk
+noremap <silent> gk gj
 noremap <silent> \v v$h
 " U/E keys for 5 times u/e (faster navigation)
-noremap <silent> U 5k
-noremap <silent> E 5j
+noremap <silent> I 5k
+noremap <silent> K 5j
 " N key: go to the start of the line
-noremap <silent> N 0
+noremap <silent> J 0
 " I key: go to the end of the line
-noremap <silent> I $
+noremap <silent> L $
 " Faster in-line navigation
 noremap W 5w
 noremap B 5b
 " set h (same as n, cursor left) to 'end of word'
-noremap h e
+"noremap h e
 " Ctrl + U or E will move up/down the view port without moving the cursor
-noremap <C-U> 5<C-y>
-noremap <C-E> 5<C-e>
+noremap <C-I> 5<C-y>
+noremap <C-K> 5<C-e>
 " Custom cursor movement
 source $HOME/.config/nvim/cursor.vim
 " If you use Qwerty keyboard, uncomment the next line.
-" source $HOME/nvim/cursor_for_qwerty.vim
+"source $HOME/nvim/cursor_for_qwerty.vim
 
 
 " ==================== Insert Mode Cursor Movement ====================
 inoremap <C-a> <ESC>A
-
+inoremap jj <ESC>
 
 " ==================== Command Mode Cursor Movement ====================
 cnoremap <C-a> <Home>
@@ -178,18 +166,18 @@ cnoremap <M-w> <S-Right>
 " ==================== Window management ====================
 " Use <space> + new arrow keys for moving the cursor around windows
 noremap <LEADER>w <C-w>w
-noremap <LEADER>u <C-w>k
-noremap <LEADER>e <C-w>j
-noremap <LEADER>n <C-w>h
-noremap <LEADER>i <C-w>l
+noremap <LEADER>i <C-w>k
+noremap <LEADER>k <C-w>j
+noremap <LEADER>j <C-w>h
+noremap <LEADER>l <C-w>l
 noremap qf <C-w>o
 " Disable the default s key
 noremap s <nop>
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap se :set splitbelow<CR>:split<CR>
-noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap si :set splitright<CR>:vsplit<CR>
+noremap si :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+noremap sk :set splitbelow<CR>:split<CR>
+noremap sj :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
 noremap <down> :res -5<CR>
@@ -208,14 +196,14 @@ noremap <LEADER>q <C-w>j:q<CR>
 
 " ==================== Tab management ====================
 " Create a new tab with tu
-noremap tu :tabe<CR>
-noremap tU :tab split<CR>
+noremap ti :tabe<CR>
+noremap tI :tab split<CR>
 " Move around tabs with tn and ti
-noremap tn :-tabnext<CR>
-noremap ti :+tabnext<CR>
+noremap tj :-tabnext<CR>
+noremap tl :+tabnext<CR>
 " Move the tabs with tmn and tmi
-noremap tmn :-tabmove<CR>
-noremap tmi :+tabmove<CR>
+noremap tmj :-tabmove<CR>
+noremap tml :+tabmove<CR>
 
 
 " ==================== Markdown Settings ====================
@@ -511,7 +499,7 @@ let g:gitgutter_sign_removed = '▏'
 let g:gitgutter_sign_removed_first_line = '▔'
 let g:gitgutter_sign_modified_removed = '▒'
 nnoremap <LEADER>gf :GitGutterFold<CR>
-nnoremap H :GitGutterPreviewHunk<CR>
+nnoremap M :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
@@ -577,7 +565,7 @@ nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<cr>
 nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
 nmap <silent> <LEADER>= <Plug>(coc-diagnostic-next)
 nnoremap <c-c> :CocCommand<CR>
-" Text Objects
+" Text Objects????????
 xmap kf <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap kf <Plug>(coc-funcobj-i)
@@ -681,10 +669,10 @@ let g:undotree_WindowLayout = 2
 let g:undotree_DiffpanelHeight = 8
 let g:undotree_SplitWidth = 24
 function g:Undotree_CustomMap()
-	nmap <buffer> u <plug>UndotreeNextState
-	nmap <buffer> e <plug>UndotreePreviousState
-	nmap <buffer> U 5<plug>UndotreeNextState
-	nmap <buffer> E 5<plug>UndotreePreviousState
+	nmap <buffer> i <plug>UndotreeNextState
+	nmap <buffer> k <plug>UndotreePreviousState
+	nmap <buffer> I 5<plug>UndotreeNextState
+	nmap <buffer> K 5<plug>UndotreePreviousState
 endfunc
 
 
@@ -693,7 +681,7 @@ endfunc
 "let g:VM_default_mappings = 0
 let g:VM_leader                     = {'default': ',', 'visual': ',', 'buffer': ','}
 let g:VM_maps                       = {}
-let g:VM_custom_motions             = {'n': 'h', 'i': 'l', 'u': 'k', 'e': 'j', 'N': '0', 'I': '$', 'h': 'e'}
+let g:VM_custom_motions             = {'j': 'h', 'l': 'l', 'i': 'k', 'k': 'j', 'J': '0', 'L': '$', 'h': 'e'}
 let g:VM_maps['i']                  = 'k'
 let g:VM_maps['I']                  = 'K'
 let g:VM_maps['Find Under']         = '<C-k>'
@@ -702,7 +690,7 @@ let g:VM_maps['Find Next']          = ''
 let g:VM_maps['Find Prev']          = ''
 let g:VM_maps['Remove Region']      = 'q'
 let g:VM_maps['Skip Region']        = '<c-n>'
-let g:VM_maps["Undo"]               = 'l'
+"let g:VM_maps["Undo"]               = 'l'
 let g:VM_maps["Redo"]               = '<C-r>'
 
 
@@ -748,14 +736,14 @@ let g:calendar_google_task = 1
 augroup calendar-mappings
 	autocmd!
 	" diamond cursor
-	autocmd FileType calendar nmap <buffer> u <Plug>(calendar_up)
-	autocmd FileType calendar nmap <buffer> n <Plug>(calendar_left)
-	autocmd FileType calendar nmap <buffer> e <Plug>(calendar_down)
-	autocmd FileType calendar nmap <buffer> i <Plug>(calendar_right)
-	autocmd FileType calendar nmap <buffer> <c-u> <Plug>(calendar_move_up)
-	autocmd FileType calendar nmap <buffer> <c-n> <Plug>(calendar_move_left)
-	autocmd FileType calendar nmap <buffer> <c-e> <Plug>(calendar_move_down)
-	autocmd FileType calendar nmap <buffer> <c-i> <Plug>(calendar_move_right)
+	autocmd FileType calendar nmap <buffer> i <Plug>(calendar_up)
+	autocmd FileType calendar nmap <buffer> j <Plug>(calendar_left)
+	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_down)
+	autocmd FileType calendar nmap <buffer> l <Plug>(calendar_right)
+	autocmd FileType calendar nmap <buffer> <c-i> <Plug>(calendar_move_up)
+	autocmd FileType calendar nmap <buffer> <c-j> <Plug>(calendar_move_left)
+	autocmd FileType calendar nmap <buffer> <c-k> <Plug>(calendar_move_down)
+	autocmd FileType calendar nmap <buffer> <c-l> <Plug>(calendar_move_right)
 	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_start_insert)
 	autocmd FileType calendar nmap <buffer> K <Plug>(calendar_start_insert_head)
 	" unmap <C-n>, <C-p> for other plugins
@@ -912,7 +900,6 @@ hi illuminatedWord cterm=undercurl gui=undercurl
 let g:rooter_patterns = ['__vim_project_root', '.git/']
 let g:rooter_silent_chdir = 1
 
-
 " ==================== AsyncRun ====================
 noremap gp :AsyncRun git push<CR>
 
@@ -928,7 +915,7 @@ let g:dartfmt_options = ["-l 100"]
 
 
 " ==================== tcomment_vim ====================
-nnoremap ci cl
+"nnoremap ci cl
 let g:tcomment_textobject_inlinecomment = ''
 nmap <LEADER>cn g>c
 vmap <LEADER>cn g>
@@ -941,7 +928,8 @@ let g:move_key_modifier = 'C'
 
 
 " ==================== any-jump ====================
-nnoremap j :AnyJump<CR>
+nnoremap <leader>m :AnyJump<CR>
+noremap <leader>m :AnyJump<CR>
 let g:any_jump_window_width_ratio  = 0.8
 let g:any_jump_window_height_ratio = 0.9
 
@@ -1014,7 +1002,7 @@ noremap <silent> <C-q> :FzfLua builtin<CR>
 noremap <silent> <C-t> :FzfLua lines<CR>
 " noremap <silent> <C-x> :FzfLua resume<CR>
 noremap <silent> z= :FzfLua spell_suggest<CR>
-noremap <silent> <C-w> :FzfLua buffers<CR>
+"noremap <silent> <C-w> :FzfLua buffers<CR>
 noremap <leader>; :History:<CR>
 augroup fzf_commands
   autocmd!
@@ -1181,7 +1169,8 @@ let g:terminal_color_12 = '#CAA9FA'
 let g:terminal_color_13 = '#FF92D0'
 let g:terminal_color_14 = '#9AEDFE'
 
-
+noremap <LEADER>j <C-w>h 
+nnoremap <LEADER>j <C-w>h 
 " ==================== Necessary Commands to Execute ====================
 exec "nohlsearch"
 
