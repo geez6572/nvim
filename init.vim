@@ -304,13 +304,14 @@ call plug#begin('$HOME/.config/nvim/plugged')
 
 
 " Treesitter
-Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 
 " Pretty Dress
 Plug 'theniceboy/nvim-deus'
 "Plug 'arzg/vim-colors-xcode'
-
+Plug 'connorholyday/vim-snazzy'
 " Status line
 Plug 'theniceboy/eleline.vim', { 'branch': 'no-scrollbar' }
 
@@ -473,11 +474,13 @@ call plug#end()
 
 set re=0
 
-
 " ==================== Dress up my vim ====================
+
 set termguicolors " enable true colors support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-silent! color deus
+"silent! color deus
+let g:SnazzyTransparent = 1
+color snazzy
 
 hi NonText ctermfg=gray guifg=grey10
 "hi SpecialKey ctermfg=blue guifg=grey70
@@ -527,7 +530,6 @@ let g:coc_global_extensions = [
 	\ 'coc-sourcekit',
 	\ 'coc-stylelint',
 	\ 'coc-syntax',
-	\ 'https://github.com/theniceboy/coc-tailwindcss',
 	\ 'coc-tasks',
 	\ 'coc-translator',
 	\ 'coc-tsserver',
@@ -1173,8 +1175,6 @@ noremap <LEADER>j <C-w>h
 nnoremap <LEADER>j <C-w>h 
 " ==================== Necessary Commands to Execute ====================
 exec "nohlsearch"
-
-
 " Open the _machine_specific.vim file if it has just been created
 if has_machine_specific_file == 0
 	exec "e ~/.config/nvim/_machine_specific.vim"
